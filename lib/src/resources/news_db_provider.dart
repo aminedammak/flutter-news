@@ -18,7 +18,7 @@ class NewDbProvider {
       version: 1,
       onCreate: (Database newDb, int version) {
         //Invoked only if the user is opening the app for the very first time
-        newDb.execute("""CREATE TABLE items (
+        newDb.execute("""CREATE TABLE Items (
           id INTEGER PRIMARY KEY, 
           deleted INTEGER,
           type TEXT,
@@ -36,5 +36,22 @@ class NewDbProvider {
         """);
       },
     );
+  }
+
+  fetchItem(id) async {
+    final maps = await db.query(
+      "Items",
+      columns: null,
+      where: "id = ?",
+      whereArgs: [id],
+    );
+    if (maps.length > 0) {
+      return ItemModel.fromDb(maps.first);
+    }
+    return null;
+  }
+
+  addItem(ItemModel item) {
+    db.insert("Item", item.toMap());
   }
 }
