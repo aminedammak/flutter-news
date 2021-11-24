@@ -1,12 +1,24 @@
+import 'package:news/src/resources/repository.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path_provider/path_provider.dart';
 import 'dart:io';
 import 'package:path/path.dart';
 import 'dart:async';
 import '../models/item_model.dart';
+import 'repository.dart';
 
-class NewsDbProvider {
+class NewsDbProvider implements Source, Cache {
   late Database db;
+
+  NewsDbProvider() {
+    init();
+  }
+
+  //TODO: fetch and store ids
+  Future<List<int>> fetchTopIds() async {
+    final List<int> ids = [1, 2, 3];
+    return ids;
+  }
 
   init() async {
     //Create a reference to a location inside the device's memery
@@ -55,3 +67,5 @@ class NewsDbProvider {
     db.insert("Item", item.toMap());
   }
 }
+
+final newsDbProvider = NewsDbProvider();
