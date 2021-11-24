@@ -5,8 +5,8 @@ import 'package:path/path.dart';
 import 'dart:async';
 import '../models/item_model.dart';
 
-class NewDbProvider {
-  Database db;
+class NewsDbProvider {
+  late Database db;
 
   init() async {
     //Create a reference to a location inside the device's memery
@@ -38,7 +38,7 @@ class NewDbProvider {
     );
   }
 
-  fetchItem(id) async {
+  Future<ItemModel?> fetchItem(id) async {
     final maps = await db.query(
       "Items",
       columns: null,
@@ -51,7 +51,7 @@ class NewDbProvider {
     return null;
   }
 
-  addItem(ItemModel item) {
+  Future<int>? addItem(ItemModel item) {
     db.insert("Item", item.toMap());
   }
 }
