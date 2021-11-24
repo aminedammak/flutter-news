@@ -16,7 +16,25 @@ class NewDbProvider {
     db = await openDatabase(
       path,
       version: 1,
-      onCreate: (Database newDb, int version) {},
+      onCreate: (Database newDb, int version) {
+        //Invoked only if the user is opening the app for the very first time
+        newDb.execute("""CREATE TABLE items (
+          id INTEGER PRIMARY KEY, 
+          deleted INTEGER,
+          type TEXT,
+          by TEXT,
+          time INTEGER,
+          text TEXT,
+          dead INTEGER,
+          parent INTEGER,
+          kids BLOB,
+          url TEXT,
+          score INTEGER,
+          title TEXT,
+          descendants INTEGER
+        )
+        """);
+      },
     );
   }
 }
