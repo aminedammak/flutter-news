@@ -38,7 +38,7 @@ class StoriesBloc {
         return cache;
       },
       /**initial value for the transformer so empty cache map */
-      <int, Future<ItemModel>>{},
+      <int, Future<ItemModel?>>{},
     );
   }
 
