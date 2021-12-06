@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../blocs/stories_provider.dart';
 
 class Refresh extends StatelessWidget {
   final child;
@@ -6,9 +7,13 @@ class Refresh extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final bloc = StoriesProvider.of(context);
     return RefreshIndicator(
       child: child,
-      onRefresh: () {},
+      onRefresh: () async {
+        await bloc.clearCache();
+        await bloc.fetchTopIds();
+      },
     );
   }
 }

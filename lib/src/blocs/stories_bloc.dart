@@ -18,6 +18,10 @@ class StoriesBloc {
     _topIds.sink.add(ids);
   }
 
+  clearCache() {
+    return _repository.clearCache();
+  }
+
   Function(int) get fetchItem => _itemsFetcher.sink.add;
 
   StoriesBloc() {
